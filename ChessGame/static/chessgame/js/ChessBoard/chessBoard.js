@@ -19,7 +19,10 @@ class ChessBoard {
       console.log(chessBoard);
       let color = i % 2 === 0 ? 'white' : 'black';
       for (let j = 0; j < 8; j++) {
-        const square = new ChessSquare();
+        const position = new Array(2);
+        position[0] = i;
+        position[1] = j;
+        const square = new ChessSquare(position);
         console.log(square);
         const { chessSquare } = square.display(color);
         console.log(chessSquare);
