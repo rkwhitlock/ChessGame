@@ -1,12 +1,14 @@
 class Pawn extends ChessPiece {
-  constructor(link, color) {
+  constructor(position, link, color) {
+    super();
     super.link = link;
     super.color = color;
     super.name = color + 'Pawn';
+    super.position = position;
 
     const pawnUpRule = new Rule(false, '+1', '+0');
     const pawnCaptureRule = new Rule(true, '+1', '+1');
-    super.rules.push(pawnUpRule);
-    super.rules.push(pawnCaptureRule);
+    this.rules.push(pawnUpRule);
+    this.rules.push(pawnCaptureRule);
   }
 }

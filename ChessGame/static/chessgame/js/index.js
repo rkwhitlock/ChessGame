@@ -17,10 +17,8 @@ body = () => {
 
   const board = new ChessBoard();
 
-  const { chessBoard } = board.display();
+  const { chessBoard } = board.startGameDisplay();
   centerContainer.append(chessBoard);
-  console.log(chessBoard);
-  console.log(centerContainer);
 };
 
 window.onload = () => {

@@ -1,24 +1,26 @@
-class Pawn extends ChessPiece {
-  constructor(link, color) {
+class King extends ChessPiece {
+  constructor(position, link, color) {
+    super();
     super.link = link;
     super.color = color;
     super.name = color + 'King';
+    super.position = position;
 
     const kingUpRule = new Rule(true, '+1', '+0');
-    super.rules.push(kingUpRule);
+    this.rules.push(kingUpRule);
     const kingUpLeftRule = new Rule(true, '+1', '-1');
-    super.rules.push(kingUpLeftRule);
+    this.rules.push(kingUpLeftRule);
     const kingUpRightRule = new Rule(true, '+1', '+1');
-    super.rules.push(kingUpRightRule);
+    this.rules.push(kingUpRightRule);
     const kingLeftRule = new Rule(true, '+0', '-1');
-    super.rules.push(kingLeftRule);
+    this.rules.push(kingLeftRule);
     const kingRightRule = new Rule(true, '+0', '+1');
-    super.rules.push(kingRightRule);
+    this.rules.push(kingRightRule);
     const kingDownRule = new Rule(true, '-1', '+0');
-    super.rules.push(kingDownRule);
+    this.rules.push(kingDownRule);
     const kingDownLeftRule = new Rule(true, '-1', '-1');
-    super.rules.push(kingDownLeftRule);
+    this.rules.push(kingDownLeftRule);
     const kingDownRightRule = new Rule(true, '-1', '+1');
-    super.rules.push(kingDownRightRule);
+    this.rules.push(kingDownRightRule);
   }
 }

@@ -1,26 +1,28 @@
 class Queen extends ChessPiece {
-  constructor(link, color) {
+  constructor(position, link, color) {
+    super();
     super.link = link;
     super.color = color;
     super.name = color + ' Queen';
+    super.position = position;
 
     for (let i = 1; i < 8; i++) {
       const queenUpRightRule = new Rule(true, '+' + i, '+' + i);
-      super.rules.push(queenUpRightRule);
+      this.rules.push(queenUpRightRule);
       const queenUpLeftRule = new Rule(true, '+' + i, '-' + i);
-      super.rules.push(queenUpLeftRule);
+      this.rules.push(queenUpLeftRule);
       const queenDownRightRule = new Rule(true, '-' + i, '+' + i);
-      super.rules.push(queenDownRightRule);
+      this.rules.push(queenDownRightRule);
       const queenDownLeftRule = new Rule(true, '-' + i, '-' + i);
-      super.rules.push(queenDownLeftRule);
+      this.rules.push(queenDownLeftRule);
       const queenUpRule = new Rule(true, '+' + i, '+0');
-      super.rules.push(queenUpRule);
+      this.rules.push(queenUpRule);
       const queenDownRule = new Rule(true, '-' + i, '+0');
-      super.rules.push(queenDownRule);
+      this.rules.push(queenDownRule);
       const queenRightRule = new Rule(true, '+0', '+' + i);
-      super.rules.push(queenightRule);
+      this.rules.push(queenRightRule);
       const queenLeftRule = new Rule(true, '+0', '-' + i);
-      super.rules.push(queenLeftRule);
+      this.rules.push(queenLeftRule);
     }
   }
 }

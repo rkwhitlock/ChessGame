@@ -1,14 +1,10 @@
 class ChessPiece {
-  link;
+  link = null;
   position = new Array(2);
   name;
-  rules = new Array();
+  rules = new Array(0);
   captured = false;
   color;
-
-  constructor(position) {
-    this.position = position;
-  }
 
   setPosition = (position) => {
     this.position = position;
@@ -20,7 +16,10 @@ class ChessPiece {
 
   display = () => {
     const chessPiece = document.createElement('img');
-    chessPiece.src = link;
+    chessPiece.src = this.link;
     chessPiece.className = 'piece';
+    return {
+      chessPiece,
+    };
   };
 }

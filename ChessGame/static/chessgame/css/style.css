@@ -24,6 +24,9 @@ h1 {
 .board {
     height: 400px;
     width: 400px;
+    border-width: 10px;
+    border-color: darkgreen;
+    border-style: solid;
 }
 
 .row {
