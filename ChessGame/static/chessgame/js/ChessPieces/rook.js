@@ -1,20 +1,36 @@
 class Rook extends ChessPiece {
-  constructor(position, link, color) {
+  constructor(position, link, color, board) {
     super();
     super.link = link;
     super.color = color;
     super.name = color + ' Rook';
     super.position = position;
-
-    for (let i = 1; i < 8; i++) {
-      const rookUpRule = new Rule(true, '+' + i, '+0');
-      this.rules.push(rookUpRule);
-      const rookDownRule = new Rule(true, '-' + i, '+0');
-      this.rules.push(rookDownRule);
-      const rookRightRule = new Rule(true, '+0', '+' + i);
-      this.rules.push(rookRightRule);
-      const rookLeftRule = new Rule(true, '+0', '-' + i);
-      this.rules.push(rookLeftRule);
-    }
+    super.board = board;
+    super.checkSquare = this.checkSquare;
   }
+
+  checkSquare = (square) => {
+    const squarePosition = square.position;
+    if (square.hasPiece) {
+      if (square.chessPiece.color != this.color) {
+        if (squarePosition[0] === this.position[0]) {
+          this.squares[squarePosition[0]][squarePosition[1]] = true;
+        } else if (squarePosition[1] === this.position[1]) {
+          this.squares[squarePosition[0]][squarePosition[1]] = true;
+        } else {
+          this.squares[squarePosition[0]][squarePosition[1]] = false;
+        }
+      } else {
+        this.squares[squarePosition[0]][squarePosition[1]] = false;
+      }
+    } else {
+      if (squarePosition[0] === this.position[0]) {
+        this.squares[squarePosition[0]][squarePosition[1]] = true;
+      } else if (squarePosition[1] === this.position[1]) {
+        this.squares[squarePosition[0]][squarePosition[1]] = true;
+      } else {
+        this.squares[squarePosition[0]][squarePosition[1]] = false;
+      }
+    }
+  };
 }

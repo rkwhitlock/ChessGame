@@ -1,25 +1,19 @@
 class ChessSquare {
   highlighted = false;
-  chessPiece = new ChessPiece();
+  chessPiece = new ChessPiece() | null;
   position;
   chessSquare;
   color;
+  hasPiece = false;
 
   constructor(position, color) {
     this.position = position;
     this.color = color;
   }
 
-  highlight = () => {
-    this.highlighted = true;
-  };
-
-  unhighlight = () => {
-    this.highlighted = false;
-  };
-
-  setChessPiece = (chessPiece) => {
+  setChessPiece = (chessPiece, hasPiece) => {
     this.chessPiece = chessPiece;
+    this.hasPiece = hasPiece;
   };
 
   display = () => {
@@ -27,11 +21,10 @@ class ChessSquare {
     this.chessSquare.className = 'square';
     this.chessSquare.style.backgroundColor = this.color;
     if (this.highlighted) {
-      this.chessSquare.style.backgroundColor = '#dfbee8';
+      this.chessSquare.style.backgroundColor = '#e851c5';
     }
     if (!!this.chessPiece.link) {
       const { chessPiece } = this.chessPiece.display();
-      console.log(chessPiece);
       this.chessSquare.append(chessPiece);
     }
     const chessSquare = this.chessSquare;
