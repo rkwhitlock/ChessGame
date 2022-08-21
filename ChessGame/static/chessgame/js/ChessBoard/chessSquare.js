@@ -1,17 +1,40 @@
 class ChessSquare {
   highlighted = false;
+  chessPiece = new ChessPiece();
+  position;
+  chessSquare;
+  color;
+
+  constructor(position, color) {
+    this.position = position;
+    this.color = color;
+  }
 
   highlight = () => {
-    this.highlighted = !this.highlighted;
+    this.highlighted = true;
   };
 
-  display = (color) => {
-    const chessSquare = document.createElement('div');
-    chessSquare.className = 'square';
-    chessSquare.style.backgroundColor = color;
+  unhighlight = () => {
+    this.highlighted = false;
+  };
+
+  setChessPiece = (chessPiece) => {
+    this.chessPiece = chessPiece;
+  };
+
+  display = () => {
+    this.chessSquare = document.createElement('div');
+    this.chessSquare.className = 'square';
+    this.chessSquare.style.backgroundColor = this.color;
     if (this.highlighted) {
-      chessSquare.style.backgroundColor = '#dfbee8';
+      this.chessSquare.style.backgroundColor = '#dfbee8';
     }
+    if (!!this.chessPiece.link) {
+      const { chessPiece } = this.chessPiece.display();
+      console.log(chessPiece);
+      this.chessSquare.append(chessPiece);
+    }
+    const chessSquare = this.chessSquare;
     return {
       chessSquare,
     };
