@@ -3,7 +3,7 @@ class King extends ChessPiece {
     super();
     super.link = link;
     super.color = color;
-    super.name = color + 'King';
+    super.name = color + ' King';
     super.position = position;
     super.board = board;
     super.checkSquare = this.checkSquare;

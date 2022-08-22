@@ -6,6 +6,7 @@ class ChessBoard {
   playerContainer = document.createElement('div');
   whiteCaptured = document.createElement('div');
   blackCaptured = document.createElement('div');
+  won = null;
 
   constructor() {
     this.playerContainer.className = 'playerContainer';
@@ -234,5 +235,19 @@ class ChessBoard {
     }
 
     this.playerContainer.innerHTML = 'Player: ' + this.playerTurn;
+    console.log(this.won);
+    console.log(!!this.won);
+    if (!!this.won) {
+      this.gameOver();
+    }
+  };
+
+  gameOver = () => {
+    console.log('hit?');
+    document.getElementById('body').innerHTML = '';
+    const win = document.createElement('div');
+    win.className = 'winContainer';
+    win.innerHTML = this.won + ' Won!';
+    document.getElementById('body').append(win);
   };
 }

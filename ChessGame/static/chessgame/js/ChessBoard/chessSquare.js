@@ -41,13 +41,17 @@ class ChessSquare {
 
   onClick = () => {
     if (this.hasPiece) {
+      console.log(this.chessPiece.name);
+      if (this.chessPiece.name === 'Black King') {
+        this.board.won = 'White';
+      } else if (this.chessPiece.name === 'White King') {
+        this.board.won = 'Black';
+      }
       this.chessPiece.capture();
       if (this.chessPiece.color === 'White') {
         this.board.blackCaptured.append(this.chessPiece.chessPiece);
-        console.log('whitecaputr');
       } else {
         this.board.whiteCaptured.append(this.chessPiece.chessPiece);
-        console.log('balcksdljf');
       }
     }
     const previousPiecePosition = this.board.selectedPiece.position;
