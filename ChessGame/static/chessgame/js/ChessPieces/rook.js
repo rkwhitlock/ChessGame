@@ -9,28 +9,42 @@ class Rook extends ChessPiece {
     super.checkSquare = this.checkSquare;
   }
 
-  checkSquare = (square) => {
-    const squarePosition = square.position;
-    if (square.hasPiece) {
-      if (square.chessPiece.color != this.color) {
-        if (squarePosition[0] === this.position[0]) {
-          this.squares[squarePosition[0]][squarePosition[1]] = true;
-        } else if (squarePosition[1] === this.position[1]) {
-          this.squares[squarePosition[0]][squarePosition[1]] = true;
-        } else {
-          this.squares[squarePosition[0]][squarePosition[1]] = false;
-        }
+  checkAvailableSquares = () => {
+    let rowPosition = this.position[0] + 1;
+    while (rowPosition < 8) {
+      if (!this.board.grid[rowPosition][this.position[1]].hasPiece) {
+        this.squares[rowPosition][this.position[1]] = true;
       } else {
-        this.squares[squarePosition[0]][squarePosition[1]] = false;
+        break;
       }
-    } else {
-      if (squarePosition[0] === this.position[0]) {
-        this.squares[squarePosition[0]][squarePosition[1]] = true;
-      } else if (squarePosition[1] === this.position[1]) {
-        this.squares[squarePosition[0]][squarePosition[1]] = true;
+      rowPosition += 1;
+    }
+    rowPosition = this.position[0] - 1;
+    while (rowPosition > -1) {
+      if (!this.board.grid[rowPosition][this.position[1]].hasPiece) {
+        this.squares[rowPosition][this.position[1]] = true;
       } else {
-        this.squares[squarePosition[0]][squarePosition[1]] = false;
+        break;
       }
+      rowPosition -= 1;
+    }
+    let columnPosition = this.position[1] + 1;
+    while (columnPosition < 8) {
+      if (!this.board.grid[this.position[0]][columnPosition]) {
+        this.squares[this.position[0]][columnPosition] = true;
+      } else {
+        break;
+      }
+      columnPosition += 1;
+    }
+    columnPosition = this.position[1] - 1;
+    while (columnPosition > -1) {
+      if (!this.board.grid[this.position[0]][columnPosition]) {
+        this.squares[this.position[0]][columnPosition] = true;
+      } else {
+        break;
+      }
+      columnPosition -= 1;
     }
   };
 }
