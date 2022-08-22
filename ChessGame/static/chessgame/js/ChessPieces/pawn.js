@@ -5,7 +5,7 @@ class Pawn extends ChessPiece {
     super();
     this.link = link;
     this.color = color;
-    this.name = color + 'Pawn';
+    this.name = color + ' Pawn';
     this.position = position;
     this.board = board;
     super.checkSquare = this.checkSquare;

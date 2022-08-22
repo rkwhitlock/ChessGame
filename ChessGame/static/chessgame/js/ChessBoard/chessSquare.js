@@ -24,7 +24,8 @@ class ChessSquare {
       this.chessSquare.style.backgroundColor = '#e851c5';
     }
     if (!!this.chessPiece.link) {
-      const { chessPiece } = this.chessPiece.display();
+      const { chessPiece, overlay } = this.chessPiece.display();
+      this.chessSquare.append(overlay);
       this.chessSquare.append(chessPiece);
     }
     const chessSquare = this.chessSquare;

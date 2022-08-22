@@ -8,6 +8,7 @@ class ChessPiece {
   squares = new Array(8);
   board;
   checkSquare;
+  overlay = document.createElement('div');
 
   constructor() {
     for (let i = 0; i < this.squares.length; i++) {
@@ -18,6 +19,7 @@ class ChessPiece {
     } else {
       this.forwardDirection = '+';
     }
+    this.overlay.style.display = 'none';
   }
 
   capture = () => {
@@ -25,17 +27,26 @@ class ChessPiece {
   };
 
   display = () => {
+    this.overlay.className = 'overlay';
+    this.overlay.id = 'Overlay ' + this.name;
     this.chessPiece = document.createElement('img');
     this.chessPiece.src = this.link;
     this.chessPiece.className = 'piece';
     this.chessPiece.onclick = this.onClick;
     const chessPiece = this.chessPiece;
+    const overlay = this.overlay;
     return {
       chessPiece,
+      overlay,
     };
   };
 
   onClick = () => {
+    const allOverlay = document.querySelectorAll('.overlay');
+    allOverlay.forEach((overlay) => {
+      overlay.style.display = 'none';
+    });
+
     this.checkAvailableSquares();
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
@@ -46,6 +57,7 @@ class ChessPiece {
         }
       }
     }
+    this.overlay.style.display = 'block';
     this.board.update();
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
