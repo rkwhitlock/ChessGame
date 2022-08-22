@@ -208,17 +208,5 @@ class ChessBoard {
         chessRow.append(chessSquare);
       }
     }
-
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        if (this.grid[i][j].hasPiece) {
-          for (let k = 0; k < 8; k++) {
-            for (let l = 0; l < 8; l++) {
-              this.grid[i][j].chessPiece.checkSquare(this.grid[k][l]);
-            }
-          }
-        }
-      }
-    }
   };
 }
