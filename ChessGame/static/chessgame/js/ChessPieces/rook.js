@@ -14,6 +14,12 @@ class Rook extends ChessPiece {
     while (rowPosition < 8) {
       if (!this.board.grid[rowPosition][this.position[1]].hasPiece) {
         this.squares[rowPosition][this.position[1]] = true;
+      } else if (
+        this.board.grid[rowPosition][this.position[1]].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[rowPosition][this.position[1]] = true;
+        break;
       } else {
         break;
       }
@@ -23,6 +29,12 @@ class Rook extends ChessPiece {
     while (rowPosition > -1) {
       if (!this.board.grid[rowPosition][this.position[1]].hasPiece) {
         this.squares[rowPosition][this.position[1]] = true;
+      } else if (
+        this.board.grid[rowPosition][this.position[1]].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[rowPosition][this.position[1]] = true;
+        break;
       } else {
         break;
       }
@@ -32,6 +44,12 @@ class Rook extends ChessPiece {
     while (columnPosition < 8) {
       if (!this.board.grid[this.position[0]][columnPosition]) {
         this.squares[this.position[0]][columnPosition] = true;
+      } else if (
+        this.board.grid[this.position[0]][columnPosition].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[this.position[0]][columnPosition] = true;
+        break;
       } else {
         break;
       }
@@ -41,6 +59,12 @@ class Rook extends ChessPiece {
     while (columnPosition > -1) {
       if (!this.board.grid[this.position[0]][columnPosition]) {
         this.squares[this.position[0]][columnPosition] = true;
+      } else if (
+        this.board.grid[this.position[0]][columnPosition].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[this.position[0]][columnPosition] = true;
+        break;
       } else {
         break;
       }

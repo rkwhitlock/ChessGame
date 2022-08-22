@@ -37,7 +37,10 @@ class Pawn extends ChessPiece {
       if (
         !this.board.grid[this.moveForward(this.position[0], 1)][
           this.position[1]
-        ].hasPiece
+        ].hasPiece &&
+        this.board.grid[this.moveForward(this.position[0], 1)][
+          this.position[1].chessPiece.color !== this.color
+        ]
       ) {
         this.squares[this.moveForward(this.position[0], 1)][
           this.position[1]

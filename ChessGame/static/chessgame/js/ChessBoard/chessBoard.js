@@ -51,7 +51,8 @@ class ChessBoard {
       new Knight(
         new Array(0, 1),
         '../../static/chessgame/img/white-knight.png',
-        'White'
+        'White',
+        this
       ),
       true
     );
@@ -91,7 +92,8 @@ class ChessBoard {
       new Knight(
         new Array(0, 6),
         '../../static/chessgame/img/white-knight.png',
-        'White'
+        'White',
+        this
       ),
       true
     );
@@ -139,7 +141,8 @@ class ChessBoard {
       new Knight(
         new Array(7, 1),
         '../../static/chessgame/img/black-knight.png',
-        'Black'
+        'Black',
+        this
       ),
       true
     );
@@ -179,7 +182,8 @@ class ChessBoard {
       new Knight(
         new Array(7, 6),
         '../../static/chessgame/img/black-knight.png',
-        'Black'
+        'Black',
+        this
       ),
       true
     );
