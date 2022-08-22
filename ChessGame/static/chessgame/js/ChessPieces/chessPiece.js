@@ -32,7 +32,11 @@ class ChessPiece {
     this.chessPiece = document.createElement('img');
     this.chessPiece.src = this.link;
     this.chessPiece.className = 'piece';
-    this.chessPiece.onclick = this.onClick;
+    if (this.board.playerTurn === this.color) {
+      this.chessPiece.onclick = this.onClick;
+    } else {
+      this.chessPiece.onclick = null;
+    }
     const chessPiece = this.chessPiece;
     const overlay = this.overlay;
     return {
@@ -46,6 +50,8 @@ class ChessPiece {
     allOverlay.forEach((overlay) => {
       overlay.style.display = 'none';
     });
+
+    this.board.selectedPiece = this;
 
     this.checkAvailableSquares();
     for (let i = 0; i < 8; i++) {

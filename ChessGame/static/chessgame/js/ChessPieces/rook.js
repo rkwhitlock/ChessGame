@@ -42,7 +42,7 @@ class Rook extends ChessPiece {
     }
     let columnPosition = this.position[1] + 1;
     while (columnPosition < 8) {
-      if (!this.board.grid[this.position[0]][columnPosition]) {
+      if (!this.board.grid[this.position[0]][columnPosition].hasPiece) {
         this.squares[this.position[0]][columnPosition] = true;
       } else if (
         this.board.grid[this.position[0]][columnPosition].chessPiece.color !==
@@ -57,7 +57,7 @@ class Rook extends ChessPiece {
     }
     columnPosition = this.position[1] - 1;
     while (columnPosition > -1) {
-      if (!this.board.grid[this.position[0]][columnPosition]) {
+      if (!this.board.grid[this.position[0]][columnPosition].hasPiece) {
         this.squares[this.position[0]][columnPosition] = true;
       } else if (
         this.board.grid[this.position[0]][columnPosition].chessPiece.color !==

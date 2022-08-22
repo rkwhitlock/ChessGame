@@ -42,7 +42,7 @@ class Queen extends ChessPiece {
     }
     let columnPosition = this.position[1] + 1;
     while (columnPosition < 8) {
-      if (!this.board.grid[this.position[0]][columnPosition]) {
+      if (!this.board.grid[this.position[0]][columnPosition].hasPiece) {
         this.squares[this.position[0]][columnPosition] = true;
       } else if (
         this.board.grid[this.position[0]][columnPosition].chessPiece.color !==
@@ -57,7 +57,7 @@ class Queen extends ChessPiece {
     }
     columnPosition = this.position[1] - 1;
     while (columnPosition > -1) {
-      if (!this.board.grid[this.position[0]][columnPosition]) {
+      if (!this.board.grid[this.position[0]][columnPosition].hasPiece) {
         this.squares[this.position[0]][columnPosition] = true;
       } else if (
         this.board.grid[this.position[0]][columnPosition].chessPiece.color !==
@@ -107,7 +107,7 @@ class Queen extends ChessPiece {
     rowPosition = this.position[0] + 1;
     columnPosition = this.position[1] - 1;
     while (rowPosition < 8 && columnPosition > -1) {
-      if (!this.board.grid[rowPosition][columnPosition]) {
+      if (!this.board.grid[rowPosition][columnPosition].hasPiece) {
         this.squares[rowPosition][columnPosition] = true;
       } else if (
         this.board.grid[rowPosition][columnPosition].chessPiece.color !==
@@ -124,7 +124,7 @@ class Queen extends ChessPiece {
     rowPosition = this.position[0] - 1;
     columnPosition = this.position[1] - 1;
     while (rowPosition > -1 && columnPosition > -1) {
-      if (!this.board.grid[rowPosition][columnPosition]) {
+      if (!this.board.grid[rowPosition][columnPosition].hasPiece) {
         this.squares[rowPosition][columnPosition] = true;
       } else if (
         this.board.grid[rowPosition][columnPosition].chessPiece.color !==

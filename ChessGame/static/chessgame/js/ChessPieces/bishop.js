@@ -47,7 +47,7 @@ class Bishop extends ChessPiece {
     rowPosition = this.position[0] + 1;
     columnPosition = this.position[1] - 1;
     while (rowPosition < 8 && columnPosition > -1) {
-      if (!this.board.grid[rowPosition][columnPosition]) {
+      if (!this.board.grid[rowPosition][columnPosition].hasPiece) {
         this.squares[rowPosition][columnPosition] = true;
       } else if (
         this.board.grid[rowPosition][columnPosition].chessPiece.color !==
@@ -64,7 +64,7 @@ class Bishop extends ChessPiece {
     rowPosition = this.position[0] - 1;
     columnPosition = this.position[1] - 1;
     while (rowPosition > -1 && columnPosition > -1) {
-      if (!this.board.grid[rowPosition][columnPosition]) {
+      if (!this.board.grid[rowPosition][columnPosition].hasPiece) {
         this.squares[rowPosition][columnPosition] = true;
       } else if (
         this.board.grid[rowPosition][columnPosition].chessPiece.color !==

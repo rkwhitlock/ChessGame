@@ -1,6 +1,8 @@
 class ChessBoard {
   grid;
   chessBoard;
+  playerTurn = 'White';
+  selectedPiece;
 
   startGameDisplay = () => {
     this.grid = new Array(8);
@@ -21,7 +23,7 @@ class ChessBoard {
         const position = new Array(2);
         position[0] = i;
         position[1] = j;
-        const square = new ChessSquare(position, color);
+        const square = new ChessSquare(position, color, this);
         const { chessSquare } = square.display();
         chessRow.append(chessSquare);
         this.grid[i][j] = square;
@@ -69,7 +71,8 @@ class ChessBoard {
       new King(
         new Array(0, 3),
         '../../static/chessgame/img/white-king.png',
-        'White'
+        'White',
+        this
       ),
       true
     );
@@ -162,7 +165,8 @@ class ChessBoard {
       new King(
         new Array(7, 3),
         '../../static/chessgame/img/black-king.png',
-        'Black'
+        'Black',
+        this
       ),
       true
     );
