@@ -13,7 +13,10 @@ class Pawn extends ChessPiece {
   }
 
   checkAvailableSquares = () => {
-    if (!this.hasMoved) {
+    if (
+      (this.color === 'Black' && this.position[0] === 6) ||
+      (this.color === 'White' && this.position[0] === 1)
+    ) {
       if (
         !this.board.grid[this.moveForward(this.position[0], 1)][
           this.position[1]

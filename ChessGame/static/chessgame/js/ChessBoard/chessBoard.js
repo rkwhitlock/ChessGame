@@ -3,6 +3,16 @@ class ChessBoard {
   chessBoard;
   playerTurn = 'White';
   selectedPiece;
+  playerContainer = document.createElement('div');
+  whiteCaptured = document.createElement('div');
+  blackCaptured = document.createElement('div');
+
+  constructor() {
+    this.playerContainer.className = 'playerContainer';
+    this.playerContainer.innerHTML = 'Player: ' + this.playerTurn;
+    this.whiteCaptured.className = 'capturedContainer';
+    this.blackCaptured.className = 'capturedContainer';
+  }
 
   startGameDisplay = () => {
     this.grid = new Array(8);
@@ -222,5 +232,7 @@ class ChessBoard {
         chessRow.append(chessSquare);
       }
     }
+
+    this.playerContainer.innerHTML = 'Player: ' + this.playerTurn;
   };
 }

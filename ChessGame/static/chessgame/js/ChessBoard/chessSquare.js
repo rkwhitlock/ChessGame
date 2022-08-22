@@ -25,6 +25,8 @@ class ChessSquare {
     if (this.highlighted) {
       this.chessSquare.style.backgroundColor = '#e851c5';
       this.chessSquare.onclick = this.onClick;
+    } else {
+      this.chessSquare.onclick = null;
     }
     if (!!this.chessPiece) {
       const { chessPiece, overlay } = this.chessPiece.display();
@@ -38,6 +40,16 @@ class ChessSquare {
   };
 
   onClick = () => {
+    if (this.hasPiece) {
+      this.chessPiece.capture();
+      if (this.chessPiece.color === 'White') {
+        this.board.blackCaptured.append(this.chessPiece.chessPiece);
+        console.log('whitecaputr');
+      } else {
+        this.board.whiteCaptured.append(this.chessPiece.chessPiece);
+        console.log('balcksdljf');
+      }
+    }
     const previousPiecePosition = this.board.selectedPiece.position;
     this.board.selectedPiece.position = this.position;
     this.board.grid[previousPiecePosition[0]][

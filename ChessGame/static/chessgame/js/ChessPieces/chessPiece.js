@@ -1,10 +1,10 @@
 class ChessPiece {
-  link = null;
+  link;
   position;
   name;
   captured = false;
   color;
-  chessPiece;
+  chessPiece = document.createElement('img');
   squares = new Array(8);
   board;
   checkSquare;
@@ -24,15 +24,15 @@ class ChessPiece {
 
   capture = () => {
     this.captured = true;
+    this.position = null;
   };
 
   display = () => {
     this.overlay.className = 'overlay';
     this.overlay.id = 'Overlay ' + this.name;
-    this.chessPiece = document.createElement('img');
     this.chessPiece.src = this.link;
     this.chessPiece.className = 'piece';
-    if (this.board.playerTurn === this.color) {
+    if (this.board.playerTurn === this.color && !this.captured) {
       this.chessPiece.onclick = this.onClick;
     } else {
       this.chessPiece.onclick = null;
