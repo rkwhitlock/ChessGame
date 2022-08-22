@@ -60,7 +60,8 @@ class ChessBoard {
       new Bishop(
         new Array(0, 2),
         '../../static/chessgame/img/white-bishop.png',
-        'White'
+        'White',
+        this
       ),
       true
     );
@@ -84,7 +85,8 @@ class ChessBoard {
       new Bishop(
         new Array(0, 5),
         '../../static/chessgame/img/white-bishop.png',
-        'White'
+        'White',
+        this
       ),
       true
     );
@@ -150,7 +152,8 @@ class ChessBoard {
       new Bishop(
         new Array(7, 2),
         '../../static/chessgame/img/black-bishop.png',
-        'Black'
+        'Black',
+        this
       ),
       true
     );
@@ -174,7 +177,8 @@ class ChessBoard {
       new Bishop(
         new Array(7, 5),
         '../../static/chessgame/img/black-bishop.png',
-        'Black'
+        'Black',
+        this
       ),
       true
     );
