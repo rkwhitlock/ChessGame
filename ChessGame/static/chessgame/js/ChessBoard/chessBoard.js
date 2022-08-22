@@ -77,7 +77,8 @@ class ChessBoard {
       new Queen(
         new Array(0, 4),
         '../../static/chessgame/img/white-queen.png',
-        'White'
+        'White',
+        this
       ),
       true
     );
@@ -169,7 +170,8 @@ class ChessBoard {
       new Queen(
         new Array(7, 4),
         '../../static/chessgame/img/black-queen.png',
-        'Black'
+        'Black',
+        this
       ),
       true
     );
