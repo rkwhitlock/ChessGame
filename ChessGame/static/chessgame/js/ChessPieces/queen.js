@@ -1,28 +1,142 @@
 class Queen extends ChessPiece {
-  constructor(position, link, color) {
+  constructor(position, link, color, board) {
     super();
     super.link = link;
     super.color = color;
     super.name = color + ' Queen';
     super.position = position;
-
-    for (let i = 1; i < 8; i++) {
-      const queenUpRightRule = new Rule(true, '+' + i, '+' + i);
-      this.rules.push(queenUpRightRule);
-      const queenUpLeftRule = new Rule(true, '+' + i, '-' + i);
-      this.rules.push(queenUpLeftRule);
-      const queenDownRightRule = new Rule(true, '-' + i, '+' + i);
-      this.rules.push(queenDownRightRule);
-      const queenDownLeftRule = new Rule(true, '-' + i, '-' + i);
-      this.rules.push(queenDownLeftRule);
-      const queenUpRule = new Rule(true, '+' + i, '+0');
-      this.rules.push(queenUpRule);
-      const queenDownRule = new Rule(true, '-' + i, '+0');
-      this.rules.push(queenDownRule);
-      const queenRightRule = new Rule(true, '+0', '+' + i);
-      this.rules.push(queenRightRule);
-      const queenLeftRule = new Rule(true, '+0', '-' + i);
-      this.rules.push(queenLeftRule);
-    }
+    super.board = board;
+    super.checkSquare = this.checkSquare;
   }
+
+  checkAvailableSquares = () => {
+    let rowPosition = this.position[0] + 1;
+    while (rowPosition < 8) {
+      if (!this.board.grid[rowPosition][this.position[1]].hasPiece) {
+        this.squares[rowPosition][this.position[1]] = true;
+      } else if (
+        this.board.grid[rowPosition][this.position[1]].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[rowPosition][this.position[1]] = true;
+        break;
+      } else {
+        break;
+      }
+      rowPosition += 1;
+    }
+    rowPosition = this.position[0] - 1;
+    while (rowPosition > -1) {
+      if (!this.board.grid[rowPosition][this.position[1]].hasPiece) {
+        this.squares[rowPosition][this.position[1]] = true;
+      } else if (
+        this.board.grid[rowPosition][this.position[1]].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[rowPosition][this.position[1]] = true;
+        break;
+      } else {
+        break;
+      }
+      rowPosition -= 1;
+    }
+    let columnPosition = this.position[1] + 1;
+    while (columnPosition < 8) {
+      if (!this.board.grid[this.position[0]][columnPosition].hasPiece) {
+        this.squares[this.position[0]][columnPosition] = true;
+      } else if (
+        this.board.grid[this.position[0]][columnPosition].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[this.position[0]][columnPosition] = true;
+        break;
+      } else {
+        break;
+      }
+      columnPosition += 1;
+    }
+    columnPosition = this.position[1] - 1;
+    while (columnPosition > -1) {
+      if (!this.board.grid[this.position[0]][columnPosition].hasPiece) {
+        this.squares[this.position[0]][columnPosition] = true;
+      } else if (
+        this.board.grid[this.position[0]][columnPosition].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[this.position[0]][columnPosition] = true;
+        break;
+      } else {
+        break;
+      }
+      columnPosition -= 1;
+    }
+    rowPosition = this.position[0] + 1;
+    columnPosition = this.position[1] + 1;
+    while (rowPosition < 8 && columnPosition < 8) {
+      if (!this.board.grid[rowPosition][columnPosition].hasPiece) {
+        this.squares[rowPosition][columnPosition] = true;
+      } else if (
+        this.board.grid[rowPosition][columnPosition].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[rowPosition][columnPosition] = true;
+        break;
+      } else {
+        break;
+      }
+      rowPosition += 1;
+      columnPosition += 1;
+    }
+    rowPosition = this.position[0] - 1;
+    columnPosition = this.position[1] + 1;
+    while (rowPosition > -1 && columnPosition < 8) {
+      if (!this.board.grid[rowPosition][columnPosition].hasPiece) {
+        this.squares[rowPosition][columnPosition] = true;
+      } else if (
+        this.board.grid[rowPosition][columnPosition].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[rowPosition][columnPosition] = true;
+        break;
+      } else {
+        break;
+      }
+      rowPosition -= 1;
+      columnPosition += 1;
+    }
+    rowPosition = this.position[0] + 1;
+    columnPosition = this.position[1] - 1;
+    while (rowPosition < 8 && columnPosition > -1) {
+      if (!this.board.grid[rowPosition][columnPosition].hasPiece) {
+        this.squares[rowPosition][columnPosition] = true;
+      } else if (
+        this.board.grid[rowPosition][columnPosition].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[rowPosition][columnPosition] = true;
+        break;
+      } else {
+        break;
+      }
+      rowPosition += 1;
+      columnPosition -= 1;
+    }
+    rowPosition = this.position[0] - 1;
+    columnPosition = this.position[1] - 1;
+    while (rowPosition > -1 && columnPosition > -1) {
+      if (!this.board.grid[rowPosition][columnPosition].hasPiece) {
+        this.squares[rowPosition][columnPosition] = true;
+      } else if (
+        this.board.grid[rowPosition][columnPosition].chessPiece.color !==
+        this.color
+      ) {
+        this.squares[rowPosition][columnPosition] = true;
+        break;
+      } else {
+        break;
+      }
+      rowPosition -= 1;
+      columnPosition -= 1;
+    }
+  };
 }

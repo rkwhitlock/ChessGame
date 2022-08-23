@@ -1,20 +1,86 @@
 class Knight extends ChessPiece {
-  constructor(position, link, color) {
+  constructor(position, link, color, board) {
     super();
     super.link = link;
     super.color = color;
     super.name = color + ' Knight';
     super.position = position;
-
-    for (let i = 1; i < 3; i++) {
-      for (let j = 1; j < 3; j++) {
-        for (let k = 1; k < 3; k++) {
-          const columnSign = j % 2 == 0 ? '-' : '+';
-          const rowSign = k % 2 == 0 ? '-' : '+';
-          const knightRule = new Rule(columnSign + i, rowSign + (3 - i));
-          this.rules.push(knightRule);
-        }
-      }
-    }
+    super.board = board;
+    super.checkSquare = this.checkSquare;
   }
+
+  checkAvailableSquares = () => {
+    try {
+      if (
+        !this.board.grid[this.position[0] + 1][this.position[1] + 2].hasPiece ||
+        this.board.grid[this.position[0] + 1][this.position[1] + 2].chessPiece
+          .color !== this.color
+      ) {
+        this.squares[this.position[0] + 1][this.position[1] + 2] = true;
+      }
+    } catch (TypeError) {}
+    try {
+      if (
+        !this.board.grid[this.position[0] + 1][this.position[1] - 2].hasPiece ||
+        this.board.grid[this.position[0] + 1][this.position[1] - 2].chessPiece
+          .color !== this.color
+      ) {
+        this.squares[this.position[0] + 1][this.position[1] - 2] = true;
+      }
+    } catch (TypeError) {}
+    try {
+      if (
+        !this.board.grid[this.position[0] - 1][this.position[1] + 2].hasPiece ||
+        this.board.grid[this.position[0] - 1][this.position[1] + 2].chessPiece
+          .color !== this.color
+      ) {
+        this.squares[this.position[0] - 1][this.position[1] + 2] = true;
+      }
+    } catch (TypeError) {}
+    try {
+      if (
+        !this.board.grid[this.position[0] - 1][this.position[1] - 2].hasPiece ||
+        this.board.grid[this.position[0] - 1][this.position[1] - 2].chessPiece
+          .color !== this.color
+      ) {
+        this.squares[this.position[0] - 1][this.position[1] - 2] = true;
+      }
+    } catch (TypeError) {}
+    try {
+      if (
+        !this.board.grid[this.position[0] + 2][this.position[1] + 1].hasPiece ||
+        this.board.grid[this.position[0] + 2][this.position[1] + 1].chessPiece
+          .color !== this.color
+      ) {
+        this.squares[this.position[0] + 2][this.position[1] + 1] = true;
+      }
+    } catch (TypeError) {}
+    try {
+      if (
+        !this.board.grid[this.position[0] + 2][this.position[1] - 1].hasPiece ||
+        this.board.grid[this.position[0] + 2][this.position[1] - 1].chessPiece
+          .color !== this.color
+      ) {
+        this.squares[this.position[0] + 2][this.position[1] - 1] = true;
+      }
+    } catch (TypeError) {}
+    try {
+      if (
+        !this.board.grid[this.position[0] - 2][this.position[1] + 1].hasPiece ||
+        this.board.grid[this.position[0] - 2][this.position[1] + 1].chessPiece
+          .color !== this.color
+      ) {
+        this.squares[this.position[0] - 2][this.position[1] + 1] = true;
+      }
+    } catch (TypeError) {}
+    try {
+      if (
+        !this.board.grid[this.position[0] - 2][this.position[1] - 1].hasPiece ||
+        this.board.grid[this.position[0] - 2][this.position[1] - 1].chessPiece
+          .color !== this.color
+      ) {
+        this.squares[this.position[0] - 2][this.position[1] - 1] = true;
+      }
+    } catch (TypeError) {}
+  };
 }

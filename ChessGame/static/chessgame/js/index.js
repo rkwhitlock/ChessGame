@@ -1,6 +1,4 @@
 body = () => {
-  const centerContainer = document.createElement('div');
-
   const style = document.createElement('link');
   style.rel = 'stylesheet';
   style.type = 'text/css';
@@ -11,14 +9,12 @@ body = () => {
   chessBoardStyle.type = 'text/css';
   chessBoardStyle.href = '../css/ChessBoard/chessboard.css';
 
+  const main = document.getElementById('main');
+  const centerContainer = document.createElement('div');
   centerContainer.className = 'centerPurple';
-  let main = document.getElementById('main');
   main.append(centerContainer);
 
-  const board = new ChessBoard();
-
-  const { chessBoard } = board.startGameDisplay();
-  centerContainer.append(chessBoard);
+  startGame(centerContainer);
 };
 
 window.onload = () => {
