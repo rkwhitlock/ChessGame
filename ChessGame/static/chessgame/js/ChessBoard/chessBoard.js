@@ -7,6 +7,8 @@ class ChessBoard {
   whiteCaptured = document.createElement('div');
   blackCaptured = document.createElement('div');
   won = null;
+  whiteInCheck = false;
+  blackInCheck = false;
 
   constructor() {
     this.playerContainer.className = 'playerContainer';
@@ -235,15 +237,24 @@ class ChessBoard {
     }
 
     this.playerContainer.innerHTML = 'Player: ' + this.playerTurn;
-    console.log(this.won);
-    console.log(!!this.won);
     if (!!this.won) {
       this.gameOver();
+    }
+
+    this.updateCheck();
+  };
+
+  updateCheck = () => {
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (this.grid[i][j].hasPiece) {
+          this.grid[i][j].chessPiece.checkOpponentInCheck();
+        }
+      }
     }
   };
 
   gameOver = () => {
-    console.log('hit?');
     document.getElementById('body').innerHTML = '';
     const win = document.createElement('div');
     win.className = 'winContainer';
