@@ -41,7 +41,6 @@ class ChessSquare {
 
   onClick = () => {
     if (this.hasPiece) {
-      console.log(this.chessPiece.name);
       if (this.chessPiece.name === 'Black King') {
         this.board.won = 'White';
       } else if (this.chessPiece.name === 'White King') {
@@ -60,6 +59,15 @@ class ChessSquare {
       previousPiecePosition[1]
     ].setChessPiece(null, false);
     this.setChessPiece(this.board.selectedPiece, true);
+
+    this.board.selectedPiece.checkAvailableSquares();
+    if (this.board.selectedPiece.check) {
+      if (this.board.playerTurn === 'White') {
+        this.board.blackInCheck = true;
+      } else {
+        this.board.whiteInCheck = true;
+      }
+    }
 
     this.board.playerTurn =
       this.board.playerTurn === 'White' ? 'Black' : 'White';

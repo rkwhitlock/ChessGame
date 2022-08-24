@@ -9,6 +9,7 @@ class ChessPiece {
   board;
   checkSquare;
   overlay = document.createElement('div');
+  check = false;
 
   constructor() {
     for (let i = 0; i < this.squares.length; i++) {
@@ -53,12 +54,25 @@ class ChessPiece {
 
     this.board.selectedPiece = this;
 
-    this.checkAvailableSquares();
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        if (this.squares[i][j]) {
-          this.board.grid[i][j].highlighted = true;
-        } else {
+    if (
+      (this.board.playerTurn === 'White' &&
+        (!this.board.whiteInCheck || this.name === 'White King')) ||
+      (this.board.playerTurn === 'Black' &&
+        (!this.board.blackInCheck || this.name === 'Black King'))
+    ) {
+      this.checkAvailableSquares();
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          if (this.squares[i][j]) {
+            this.board.grid[i][j].highlighted = true;
+          } else {
+            this.board.grid[i][j].highlighted = false;
+          }
+        }
+      }
+    } else {
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
           this.board.grid[i][j].highlighted = false;
         }
       }
@@ -80,5 +94,28 @@ class ChessPiece {
     } else {
       return x - y;
     }
+  };
+
+  checkOpponentInCheck = () => {
+    this.checkAvailableSquares();
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (this.squares[i][j]) {
+          if (
+            this.board.grid[i][j].hasPiece &&
+            this.board.grid[i][j].chessPiece.name.includes('King')
+          ) {
+            if (this.color === 'White') {
+              this.board.blackInCheck = true;
+            } else {
+              this.board.whiteInCheck = true;
+            }
+            this.check = true;
+            return;
+          }
+        }
+      }
+    }
+    this.check = false;
   };
 }
