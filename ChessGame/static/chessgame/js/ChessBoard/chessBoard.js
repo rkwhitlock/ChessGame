@@ -9,6 +9,8 @@ class ChessBoard {
   won = null;
   whiteInCheck = false;
   blackInCheck = false;
+  whiteKingPos;
+  blackKingPos;
 
   constructor() {
     this.playerContainer.className = 'playerContainer';
@@ -89,6 +91,7 @@ class ChessBoard {
       ),
       true
     );
+    this.whiteKingPos = new Array(0, 3);
     this.grid[0][4].setChessPiece(
       new Queen(
         new Array(0, 4),
@@ -183,6 +186,7 @@ class ChessBoard {
       ),
       true
     );
+    this.blackKingPos = new Array(7, 3);
     this.grid[7][4].setChessPiece(
       new Queen(
         new Array(7, 4),

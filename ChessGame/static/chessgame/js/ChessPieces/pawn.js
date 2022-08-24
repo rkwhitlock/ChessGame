@@ -13,6 +13,7 @@ class Pawn extends ChessPiece {
   }
 
   checkAvailableSquares = () => {
+    this.availableSquares = new Array(0);
     if (
       (this.color === 'Black' && this.position[0] === 6) ||
       (this.color === 'White' && this.position[0] === 1)
@@ -22,33 +23,34 @@ class Pawn extends ChessPiece {
           this.position[1]
         ].hasPiece
       ) {
-        this.squares[this.moveForward(this.position[0], 1)][
-          this.position[1]
-        ] = true;
+        this.availableSquares.push(
+          new Array(this.moveForward(this.position[0], 1), this.position[1])
+        );
         if (
           !this.board.grid[this.moveForward(this.position[0], 2)][
             this.position[1]
           ].hasPiece
         ) {
-          this.squares[this.moveForward(this.position[0], 2)][
-            this.position[1]
-          ] = true;
+          this.availableSquares.push(
+            new Array(this.moveForward(this.position[0], 2), this.position[1])
+          );
         }
       }
+    } else {
+      try {
+        if (
+          !this.board.grid[this.moveForward(this.position[0], 1)][
+            this.position[1]
+          ].hasPiece
+        ) {
+          this.availableSquares.push(
+            new Array(this.moveForward(this.position[0], 1), this.position[1])
+          );
+        }
+      } catch (TypeError) {}
     }
     try {
       if (
-        !this.board.grid[this.moveForward(this.position[0], 1)][
-          this.position[1]
-        ].hasPiece
-      ) {
-        this.squares[this.moveForward(this.position[0], 1)][
-          this.position[1]
-        ] = true;
-      }
-    } catch (TypeError) {}
-    try {
-      if (
         this.board.grid[this.moveForward(this.position[0], 1)][
           this.position[1] + 1
         ].hasPiece &&
@@ -56,9 +58,9 @@ class Pawn extends ChessPiece {
           this.position[1] + 1
         ].chessPiece.color !== this.color
       ) {
-        this.squares[this.moveForward(this.position[0], 1)][
-          this.position[1] + 1
-        ] = true;
+        this.availableSquares.push(
+          new Array(this.moveForward(this.position[0], 1), this.position[1] + 1)
+        );
       }
     } catch (TypeError) {}
     try {
@@ -70,9 +72,9 @@ class Pawn extends ChessPiece {
           this.position[1] - 1
         ].chessPiece.color !== this.color
       ) {
-        this.squares[this.moveForward(this.position[0], 1)][
-          this.position[1] - 1
-        ] = true;
+        this.availableSquares.push(
+          new Array(this.moveForward(this.position[0], 1), this.position[1] - 1)
+        );
       }
     } catch (TypeError) {}
   };

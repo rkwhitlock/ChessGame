@@ -60,7 +60,16 @@ class ChessSquare {
     ].setChessPiece(null, false);
     this.setChessPiece(this.board.selectedPiece, true);
 
+    if (this.board.selectedPiece.name.includes('King')) {
+      if (this.board.playerTurn === 'White') {
+        this.board.whiteKingPos = this.position;
+      } else {
+        this.board.blackKingPos = this.position;
+      }
+    }
+
     this.board.selectedPiece.checkAvailableSquares();
+    this.board.selectedPiece.checkOpponentInCheck();
     if (this.board.selectedPiece.check) {
       if (this.board.playerTurn === 'White') {
         this.board.blackInCheck = true;

@@ -10,13 +10,16 @@ class Knight extends ChessPiece {
   }
 
   checkAvailableSquares = () => {
+    this.availableSquares = new Array(0);
     try {
       if (
         !this.board.grid[this.position[0] + 1][this.position[1] + 2].hasPiece ||
         this.board.grid[this.position[0] + 1][this.position[1] + 2].chessPiece
           .color !== this.color
       ) {
-        this.squares[this.position[0] + 1][this.position[1] + 2] = true;
+        this.availableSquares.push(
+          new Array(this.position[0] + 1, this.position[1] + 2)
+        );
       }
     } catch (TypeError) {}
     try {
@@ -25,7 +28,9 @@ class Knight extends ChessPiece {
         this.board.grid[this.position[0] + 1][this.position[1] - 2].chessPiece
           .color !== this.color
       ) {
-        this.squares[this.position[0] + 1][this.position[1] - 2] = true;
+        this.availableSquares.push(
+          new Array(this.position[0] + 1, this.position[1] - 2)
+        );
       }
     } catch (TypeError) {}
     try {
@@ -34,7 +39,9 @@ class Knight extends ChessPiece {
         this.board.grid[this.position[0] - 1][this.position[1] + 2].chessPiece
           .color !== this.color
       ) {
-        this.squares[this.position[0] - 1][this.position[1] + 2] = true;
+        this.availableSquares.push(
+          new Array(this.position[0] - 1, this.position[1] + 2)
+        );
       }
     } catch (TypeError) {}
     try {
@@ -43,7 +50,9 @@ class Knight extends ChessPiece {
         this.board.grid[this.position[0] - 1][this.position[1] - 2].chessPiece
           .color !== this.color
       ) {
-        this.squares[this.position[0] - 1][this.position[1] - 2] = true;
+        this.availableSquares.push(
+          new Array(this.position[0] - 1, this.position[1] - 2)
+        );
       }
     } catch (TypeError) {}
     try {
@@ -52,7 +61,9 @@ class Knight extends ChessPiece {
         this.board.grid[this.position[0] + 2][this.position[1] + 1].chessPiece
           .color !== this.color
       ) {
-        this.squares[this.position[0] + 2][this.position[1] + 1] = true;
+        this.availableSquares.push(
+          new Array(this.position[0] + 2, this.position[1] + 1)
+        );
       }
     } catch (TypeError) {}
     try {
@@ -61,7 +72,9 @@ class Knight extends ChessPiece {
         this.board.grid[this.position[0] + 2][this.position[1] - 1].chessPiece
           .color !== this.color
       ) {
-        this.squares[this.position[0] + 2][this.position[1] - 1] = true;
+        this.availableSquares.push(
+          new Array(this.position[0] + 2, this.position[1] - 1)
+        );
       }
     } catch (TypeError) {}
     try {
@@ -70,7 +83,9 @@ class Knight extends ChessPiece {
         this.board.grid[this.position[0] - 2][this.position[1] + 1].chessPiece
           .color !== this.color
       ) {
-        this.squares[this.position[0] - 2][this.position[1] + 1] = true;
+        this.availableSquares.push(
+          new Array(this.position[0] - 2, this.position[1] + 1)
+        );
       }
     } catch (TypeError) {}
     try {
@@ -79,7 +94,9 @@ class Knight extends ChessPiece {
         this.board.grid[this.position[0] - 2][this.position[1] - 1].chessPiece
           .color !== this.color
       ) {
-        this.squares[this.position[0] - 2][this.position[1] - 1] = true;
+        this.availableSquares.push(
+          new Array(this.position[0] - 2, this.position[1] - 1)
+        );
       }
     } catch (TypeError) {}
   };
