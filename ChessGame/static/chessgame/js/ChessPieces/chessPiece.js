@@ -51,20 +51,14 @@ class ChessPiece {
       }
     }
 
-    if (
-      (this.board.playerTurn === 'White' &&
-        (!this.board.whiteInCheck || this.name === 'White King')) ||
-      (this.board.playerTurn === 'Black' &&
-        (!this.board.blackInCheck || this.name === 'Black King'))
-    ) {
-      this.checkAvailableSquares();
-      this.removeCheckSquares();
-      for (let i = 0; i < this.availableSquares.length; i++) {
-        this.board.grid[this.availableSquares[i][0]][
-          this.availableSquares[i][1]
-        ].highlighted = true;
-      }
+    this.checkAvailableSquares();
+    this.removeCheckSquares();
+    for (let i = 0; i < this.availableSquares.length; i++) {
+      this.board.grid[this.availableSquares[i][0]][
+        this.availableSquares[i][1]
+      ].highlighted = true;
     }
+
     this.overlay.style.display = 'block';
     this.board.update();
     this.availableSquares = new Array(0);
@@ -97,17 +91,27 @@ class ChessPiece {
   };
 
   preventCheck = (piece, newPosition, oldPosition) => {
-    console.log(newPosition);
-    console.log(newPosition[0]);
-    console.log(newPosition[1]);
-    console.log(this.board.grid[newPosition[0]][newPosition[1]]);
     const oldPiece = this.board.grid[newPosition[0]][newPosition[1]].hasPiece
       ? this.board.grid[newPosition[0]][newPosition[1]].chessPiece
       : null;
     this.board.grid[oldPosition[0]][oldPosition[1]].setChessPiece(null, false);
     this.board.grid[newPosition[0]][newPosition[1]].setChessPiece(piece, true);
 
+    if (piece.name === 'Black King') {
+      this.board.blackKingPos = newPosition;
+    }
+    if (piece.name === 'White King') {
+      this.board.whiteKingPos = newPosition;
+    }
+
     this.checkOpponentInCheck();
+
+    if (piece.name === 'Black King') {
+      this.board.blackKingPos = oldPosition;
+    }
+    if (piece.name === 'White King') {
+      this.board.whiteKingPos = oldPosition;
+    }
 
     this.board.grid[oldPosition[0]][oldPosition[1]].setChessPiece(piece, true);
     this.board.grid[newPosition[0]][newPosition[1]].setChessPiece(
@@ -130,8 +134,10 @@ class ChessPiece {
       let remove = false;
       for (let j = 0; j < 8; j++) {
         for (let k = 0; k < 8; k++) {
-          if (this.board.grid[j][k].hasPiece) {
-            console.log('ava', this.availableSquares[i]);
+          if (
+            this.board.grid[j][k].hasPiece &&
+            this.board.grid[j][k].chessPiece.color !== this.color
+          ) {
             if (
               !this.board.grid[j][k].chessPiece.preventCheck(
                 this,
@@ -148,7 +154,6 @@ class ChessPiece {
         squaresToKeep.pop();
       }
     }
-    console.log(squaresToKeep);
     this.availableSquares = squaresToKeep;
   };
 }

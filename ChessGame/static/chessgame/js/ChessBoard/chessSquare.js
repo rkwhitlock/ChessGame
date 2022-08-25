@@ -53,6 +53,7 @@ class ChessSquare {
         this.board.whiteCaptured.append(this.chessPiece.chessPiece);
       }
     }
+
     const previousPiecePosition = this.board.selectedPiece.position;
     this.board.selectedPiece.position = this.position;
     this.board.grid[previousPiecePosition[0]][
@@ -68,15 +69,11 @@ class ChessSquare {
       }
     }
 
-    this.board.selectedPiece.checkAvailableSquares();
-    this.board.selectedPiece.checkOpponentInCheck();
-    if (this.board.selectedPiece.check) {
-      if (this.board.playerTurn === 'White') {
-        this.board.blackInCheck = true;
-      } else {
-        this.board.whiteInCheck = true;
-      }
+    if (this.board.checkForCheckmate()) {
+      this.board.won = this.board.playerTurn;
     }
+
+    this.board.selectedPiece.checkOpponentInCheck();
 
     this.board.playerTurn =
       this.board.playerTurn === 'White' ? 'Black' : 'White';
