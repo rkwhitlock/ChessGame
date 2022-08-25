@@ -273,6 +273,9 @@ class ChessBoard {
         ) {
           this.grid[i][j].chessPiece.checkAvailableSquares();
           this.grid[i][j].chessPiece.removeCheckSquares();
+          if (this.grid[i][j].chessPiece.availableSquares.length !== 0) {
+            return false;
+          }
         }
       }
     }
