@@ -7,8 +7,6 @@ class ChessBoard {
   whiteCaptured = document.createElement('div');
   blackCaptured = document.createElement('div');
   won = null;
-  whiteInCheck = false;
-  blackInCheck = false;
   whiteKingPos;
   blackKingPos;
 
@@ -264,5 +262,23 @@ class ChessBoard {
     win.className = 'winContainer';
     win.innerHTML = this.won + ' Won!';
     document.getElementById('body').append(win);
+  };
+
+  checkForCheckmate = () => {
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (
+          this.grid[i][j].hasPiece &&
+          this.grid[i][j].chessPiece.color !== this.playerTurn
+        ) {
+          this.grid[i][j].chessPiece.checkAvailableSquares();
+          this.grid[i][j].chessPiece.removeCheckSquares();
+          if (this.grid[i][j].chessPiece.availableSquares.length !== 0) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   };
 }

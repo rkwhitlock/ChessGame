@@ -1,4 +1,5 @@
 class Rook extends ChessPiece {
+  notMoved = true;
   constructor(position, link, color, board) {
     super();
     super.link = link;

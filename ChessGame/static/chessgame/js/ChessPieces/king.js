@@ -1,4 +1,5 @@
 class King extends ChessPiece {
+  notMoved = true;
   constructor(position, link, color, board) {
     super();
     super.link = link;
@@ -99,5 +100,35 @@ class King extends ChessPiece {
         );
       }
     } catch (TypeError) {}
+
+    if (this.color === 'Black') {
+      if (
+        this.board.grid[7][0].hasPiece &&
+        !this.board.grid[7][1].hasPiece &&
+        !this.board.grid[7][2].hasPiece &&
+        this.notMoved
+      ) {
+        if (
+          this.board.grid[7][0].chessPiece.name.includes('Rook') &&
+          this.board.grid[7][0].chessPiece.notMoved
+        ) {
+          this.availableSquares.push(new Array(7, 1));
+        }
+      }
+    } else {
+      if (
+        this.board.grid[0][0].hasPiece &&
+        !this.board.grid[0][1].hasPiece &&
+        !this.board.grid[0][2].hasPiece &&
+        this.notMoved
+      ) {
+        if (
+          this.board.grid[0][0].chessPiece.name.includes('Rook') &&
+          this.board.grid[0][0].chessPiece.notMoved
+        ) {
+          this.availableSquares.push(new Array(0, 1));
+        }
+      }
+    }
   };
 }
