@@ -9,6 +9,8 @@ class ChessBoard {
   won = null;
   whiteKingPos;
   blackKingPos;
+  enPassantPiece;
+  enPassantClicked = false;
 
   constructor() {
     this.playerContainer.className = 'playerContainer';
