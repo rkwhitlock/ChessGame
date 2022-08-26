@@ -22,16 +22,15 @@ class ChessSquare {
     this.chessSquare = document.createElement('div');
     this.chessSquare.className = 'square';
     this.chessSquare.style.backgroundColor = this.color;
-    if (this.highlighted) {
+    if (this.highlighted && !this.board.pawnReplace) {
       this.chessSquare.style.backgroundColor = '#e851c5';
       this.chessSquare.onclick = this.onClick;
     } else {
       this.chessSquare.onclick = null;
     }
     if (!!this.chessPiece) {
-      const { chessPiece, overlay } = this.chessPiece.display();
-      this.chessSquare.append(overlay);
-      this.chessSquare.append(chessPiece);
+      const { pieceContainer } = this.chessPiece.display();
+      this.chessSquare.append(pieceContainer);
     }
     const chessSquare = this.chessSquare;
     return {
@@ -40,6 +39,47 @@ class ChessSquare {
   };
 
   onClick = () => {
+    if (this.board.selectedPiece.name.includes('Pawn')) {
+      if (!!this.board.enPassantPiece) {
+        if (
+          this.board.enPassantPiece.position[1] === this.position[1] &&
+          ((this.board.enPassantPiece.position[0] + 1 === this.position[0] &&
+            this.board.selectedPiece.color === 'White') ||
+            (this.board.enPassantPiece.position[0] - 1 === this.position[0] &&
+              this.board.selectedPiece.color === 'Black'))
+        ) {
+          if (this.board.enPassantPiece.color === 'White') {
+            this.board.grid[this.board.enPassantPiece.position[0]][
+              this.board.enPassantPiece.position[1]
+            ].setChessPiece(null, false);
+          } else {
+            this.board.grid[this.board.enPassantPiece.position[0]][
+              this.board.enPassantPiece.position[1]
+            ].setChessPiece(null, false);
+          }
+          this.board.enPassantPiece.capture();
+        }
+      }
+      if (this.position[0] === 0 || this.position[0] === 7) {
+        console.log('?');
+        if (this.board.selectedPiece.color === 'White') {
+          console.log(this.board.blackCaptured);
+          for (let i = 0; i < this.board.blackCaptured.length; i++) {
+            this.board.blackCaptured[i].overlay.style.display = 'block';
+            this.board.blackCaptured[i].pieceContainer.onclick =
+              this.board.blackCaptured[i].pawnCapturedOnClick;
+          }
+        } else {
+          for (let i = 0; i < this.board.whiteCaptured.length; i++) {
+            this.board.whiteCaptured[i].overlay.style.display = 'block';
+            this.board.whiteCaptured[i].pieceContainer.onclick =
+              this.board.whiteCaptured[i].pawnCapturedOnClick;
+          }
+        }
+        this.board.pawnReplace = true;
+      }
+    }
+
     if (this.hasPiece) {
       if (this.chessPiece.name === 'Black King') {
         this.board.won = 'White';
@@ -47,11 +87,6 @@ class ChessSquare {
         this.board.won = 'Black';
       }
       this.chessPiece.capture();
-      if (this.chessPiece.color === 'White') {
-        this.board.blackCaptured.append(this.chessPiece.chessPiece);
-      } else {
-        this.board.whiteCaptured.append(this.chessPiece.chessPiece);
-      }
     }
 
     if (
@@ -70,23 +105,7 @@ class ChessSquare {
       this.castle();
     }
 
-    if (this.board.enPassantClicked) {
-      if (this.board.enPassantPiece.color === 'White') {
-        this.board.blackCaptured.append(this.board.enPassantPiece.chessPiece);
-      } else {
-        this.board.whiteCaptured.append(this.board.enPassantPiece.chessPiece);
-        this.board.grid[this.board.enPassantPiece.position[0]][
-          this.board.enPassantPiece.position[1]
-        ].setChessPiece(null, false);
-      }
-      this.board.enPassantPiece.capture();
-    }
-
-    this.board.enPassantClicked = false;
-
-    if (!!this.board.enPassantPiece) {
-      this.board.enPassantPiece = null;
-    }
+    this.board.enPassantPiece = null;
 
     if (this.board.selectedPiece.name.includes('Pawn')) {
       if (this.board.selectedPiece.notMoved) {

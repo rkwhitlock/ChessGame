@@ -87,7 +87,6 @@ class Pawn extends ChessPiece {
             this.board.enPassantPiece.position[1]
           )
         );
-        this.board.enPassantClicked = true;
       }
     }
   };
