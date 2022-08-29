@@ -1,5 +1,5 @@
 class Pawn extends ChessPiece {
-  hasMoved = false;
+  notMoved = true;
 
   constructor(position, link, color, board) {
     super();
@@ -14,10 +14,7 @@ class Pawn extends ChessPiece {
 
   checkAvailableSquares = () => {
     this.availableSquares = new Array(0);
-    if (
-      (this.color === 'Black' && this.position[0] === 6) ||
-      (this.color === 'White' && this.position[0] === 1)
-    ) {
+    if (this.notMoved) {
       if (
         !this.board.grid[this.moveForward(this.position[0], 1)][
           this.position[1]
@@ -77,5 +74,20 @@ class Pawn extends ChessPiece {
         );
       }
     } catch (TypeError) {}
+
+    if (!!this.board.enPassantPiece) {
+      if (
+        this.board.enPassantPiece.position[0] === this.position[0] &&
+        (this.board.enPassantPiece.position[1] - 1 === this.position[1] ||
+          this.board.enPassantPiece.position[1] + 1 === this.position[1])
+      ) {
+        this.availableSquares.push(
+          new Array(
+            this.moveForward(this.board.enPassantPiece.position[0], 1),
+            this.board.enPassantPiece.position[1]
+          )
+        );
+      }
+    }
   };
 }

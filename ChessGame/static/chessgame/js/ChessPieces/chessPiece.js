@@ -2,21 +2,33 @@ class ChessPiece {
   link;
   position;
   name;
-  captured = false;
   color;
   chessPiece = document.createElement('img');
   board;
   overlay = document.createElement('div');
   check = false;
   availableSquares = new Array(0);
+  indexInCapture;
+  pieceContainer = document.createElement('div');
 
   constructor() {
     this.overlay.style.display = 'none';
+    this.pieceContainer.className = 'pieceContainer';
+    this.pieceContainer.append(this.overlay);
+    this.pieceContainer.append(this.chessPiece);
   }
 
   capture = () => {
-    this.captured = true;
     this.position = null;
+    if (this.color === 'White') {
+      this.board.blackCaptured.push(this);
+      this.indexInCapture = this.board.blackCaptured.length;
+      this.board.blackCapturedContainer.append(this.pieceContainer);
+    } else {
+      this.board.whiteCaptured.push(this);
+      this.indexInCapture = this.board.whiteCaptured.length;
+      this.board.whiteCapturedContainer.append(this.pieceContainer);
+    }
   };
 
   display = () => {
@@ -25,15 +37,13 @@ class ChessPiece {
     this.chessPiece.src = this.link;
     this.chessPiece.className = 'piece';
     if (this.board.playerTurn === this.color && !this.captured) {
-      this.chessPiece.onclick = this.onClick;
+      this.pieceContainer.onclick = this.onClick;
     } else {
-      this.chessPiece.onclick = null;
+      this.pieceContainer.onclick = null;
     }
-    const chessPiece = this.chessPiece;
-    const overlay = this.overlay;
+    const pieceContainer = this.pieceContainer;
     return {
-      chessPiece,
-      overlay,
+      pieceContainer,
     };
   };
 
@@ -155,5 +165,37 @@ class ChessPiece {
       }
     }
     this.availableSquares = squaresToKeep;
+  };
+
+  pawnCapturedOnClick = () => {
+    console.log('??');
+    console.log(this);
+    this.position = this.board.selectedPiece.position;
+    this.board.grid[this.position[0]][this.position[1]].setChessPiece(
+      this,
+      true
+    );
+    this.board.selectedPiece.capture();
+    if (this.color === 'White') {
+      this.board.whiteCaptured.splice(this.indexInCapture, 1);
+      this.board.whiteCapturedContainer.innerHTML = '';
+      for (let i = 0; i < this.board.whiteCaptured.length; i++) {
+        this.board.whiteCapturedContainer.append(
+          this.board.whiteCaptured[i].pieceContainer
+        );
+      }
+    } else {
+      this.board.blackCaptured.splice(this.indexInCapture, 1);
+      console.log(this);
+      console.log(this.indexInCapture);
+      console.log(this.board.blackCaptured);
+      this.board.blackCapturedContainer.innerHTML = '';
+      for (let i = 0; i < this.board.blackCaptured.length; i++) {
+        this.board.blackCapturedContainer.append(
+          this.board.blackCaptured[i].chessPiece
+        );
+      }
+    }
+    this.board.pawnReplace = false;
   };
 }

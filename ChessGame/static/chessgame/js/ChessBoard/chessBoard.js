@@ -4,17 +4,21 @@ class ChessBoard {
   playerTurn = 'White';
   selectedPiece;
   playerContainer = document.createElement('div');
-  whiteCaptured = document.createElement('div');
-  blackCaptured = document.createElement('div');
+  whiteCapturedContainer = document.createElement('div');
+  blackCapturedContainer = document.createElement('div');
   won = null;
   whiteKingPos;
   blackKingPos;
+  enPassantPiece;
+  whiteCaptured = new Array(0);
+  blackCaptured = new Array(0);
+  pawnReplace = false;
 
   constructor() {
     this.playerContainer.className = 'playerContainer';
     this.playerContainer.innerHTML = 'Player: ' + this.playerTurn;
-    this.whiteCaptured.className = 'capturedContainer';
-    this.blackCaptured.className = 'capturedContainer';
+    this.whiteCapturedContainer.className = 'capturedContainer';
+    this.blackCapturedContainer.className = 'capturedContainer';
   }
 
   startGameDisplay = () => {
