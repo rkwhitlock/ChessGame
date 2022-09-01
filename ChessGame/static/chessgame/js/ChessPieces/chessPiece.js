@@ -22,12 +22,12 @@ class ChessPiece {
     this.position = null;
     if (this.color === 'White') {
       this.board.blackCaptured.push(this);
-      this.indexInCapture = this.board.blackCaptured.length;
-      this.board.blackCapturedContainer.append(this.pieceContainer);
+      this.indexInCapture = this.board.blackCaptured.length - 1;
+      this.board.blackCapturedContainer.append(this.chessPiece);
     } else {
       this.board.whiteCaptured.push(this);
-      this.indexInCapture = this.board.whiteCaptured.length;
-      this.board.whiteCapturedContainer.append(this.pieceContainer);
+      this.indexInCapture = this.board.whiteCaptured.length - 1;
+      this.board.whiteCapturedContainer.append(this.chessPiece);
     }
   };
 
@@ -36,7 +36,11 @@ class ChessPiece {
     this.overlay.id = 'Overlay ' + this.name;
     this.chessPiece.src = this.link;
     this.chessPiece.className = 'piece';
-    if (this.board.playerTurn === this.color && !this.captured) {
+    if (
+      this.board.playerTurn === this.color &&
+      !this.captured &&
+      !this.board.pawnReplacement
+    ) {
       this.pieceContainer.onclick = this.onClick;
     } else {
       this.pieceContainer.onclick = null;
@@ -128,6 +132,12 @@ class ChessPiece {
       oldPiece,
       !!oldPiece
     );
+    if (
+      this.position[0] === newPosition[0] &&
+      this.position[1] === newPosition[1]
+    ) {
+      return true;
+    }
     if (this.check) {
       this.checkOpponentInCheck();
       return false;
@@ -167,28 +177,24 @@ class ChessPiece {
     this.availableSquares = squaresToKeep;
   };
 
-  pawnCapturedOnClick = () => {
-    console.log('??');
-    console.log(this);
+  pawnReplaceOnClick = () => {
+    this.pieceContainer.append(this.chessPiece);
     this.position = this.board.selectedPiece.position;
     this.board.grid[this.position[0]][this.position[1]].setChessPiece(
       this,
       true
     );
     this.board.selectedPiece.capture();
-    if (this.color === 'White') {
+    if (this.color === 'Black') {
       this.board.whiteCaptured.splice(this.indexInCapture, 1);
       this.board.whiteCapturedContainer.innerHTML = '';
       for (let i = 0; i < this.board.whiteCaptured.length; i++) {
         this.board.whiteCapturedContainer.append(
-          this.board.whiteCaptured[i].pieceContainer
+          this.board.whiteCaptured[i].chessPiece
         );
       }
     } else {
       this.board.blackCaptured.splice(this.indexInCapture, 1);
-      console.log(this);
-      console.log(this.indexInCapture);
-      console.log(this.board.blackCaptured);
       this.board.blackCapturedContainer.innerHTML = '';
       for (let i = 0; i < this.board.blackCaptured.length; i++) {
         this.board.blackCapturedContainer.append(
@@ -196,6 +202,20 @@ class ChessPiece {
         );
       }
     }
-    this.board.pawnReplace = false;
+
+    if (this.board.selectedPiece.color === 'White') {
+      for (let i = 0; i < this.board.blackCaptured.length; i++) {
+        this.board.blackCaptured[i].chessPiece.onclick = null;
+      }
+    } else {
+      for (let i = 0; i < this.board.whiteCaptured.length; i++) {
+        this.board.whiteCaptured[i].chessPiece.onclick = null;
+      }
+    }
+
+    this.chessPiece.onclick = null;
+
+    this.board.pawnReplacement = false;
+    this.board.update();
   };
 }

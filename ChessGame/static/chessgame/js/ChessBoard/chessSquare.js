@@ -6,6 +6,7 @@ class ChessSquare {
   color;
   hasPiece = false;
   board;
+  pieceContainer;
 
   constructor(position, color, board) {
     this.position = position;
@@ -22,15 +23,18 @@ class ChessSquare {
     this.chessSquare = document.createElement('div');
     this.chessSquare.className = 'square';
     this.chessSquare.style.backgroundColor = this.color;
-    if (this.highlighted && !this.board.pawnReplace) {
+
+    if (this.highlighted) {
       this.chessSquare.style.backgroundColor = '#e851c5';
       this.chessSquare.onclick = this.onClick;
     } else {
       this.chessSquare.onclick = null;
     }
-    if (!!this.chessPiece) {
+
+    if (this.hasPiece) {
       const { pieceContainer } = this.chessPiece.display();
-      this.chessSquare.append(pieceContainer);
+      this.pieceContainer = pieceContainer;
+      this.chessSquare.append(this.pieceContainer);
     }
     const chessSquare = this.chessSquare;
     return {
@@ -61,22 +65,7 @@ class ChessSquare {
         }
       }
       if (this.position[0] === 0 || this.position[0] === 7) {
-        console.log('?');
-        if (this.board.selectedPiece.color === 'White') {
-          console.log(this.board.blackCaptured);
-          for (let i = 0; i < this.board.blackCaptured.length; i++) {
-            this.board.blackCaptured[i].overlay.style.display = 'block';
-            this.board.blackCaptured[i].pieceContainer.onclick =
-              this.board.blackCaptured[i].pawnCapturedOnClick;
-          }
-        } else {
-          for (let i = 0; i < this.board.whiteCaptured.length; i++) {
-            this.board.whiteCaptured[i].overlay.style.display = 'block';
-            this.board.whiteCaptured[i].pieceContainer.onclick =
-              this.board.whiteCaptured[i].pawnCapturedOnClick;
-          }
-        }
-        this.board.pawnReplace = true;
+        this.board.pawnReplace();
       }
     }
 
@@ -92,14 +81,14 @@ class ChessSquare {
     if (
       this.board.selectedPiece.name === 'Black King' &&
       this.position[0] === 7 &&
-      this.position[1] === 1 &&
+      (this.position[1] === 1 || this.position[1] === 6) &&
       this.board.selectedPiece.notMoved
     ) {
       this.castle();
     } else if (
       this.board.selectedPiece.name === 'White King' &&
       this.position[0] === 0 &&
-      this.position[1] === 1 &&
+      (this.position[1] === 1 || this.position[1] === 6) &&
       this.board.selectedPiece.notMoved
     ) {
       this.castle();
@@ -153,8 +142,6 @@ class ChessSquare {
     this.board.playerTurn =
       this.board.playerTurn === 'White' ? 'Black' : 'White';
 
-    this.board.update();
-
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         this.board.grid[i][j].highlighted = false;
@@ -166,19 +153,37 @@ class ChessSquare {
 
   castle = () => {
     if (this.board.playerTurn === 'White') {
-      this.board.grid[0][2].setChessPiece(
-        this.board.grid[0][0].chessPiece,
-        true
-      );
-      this.board.grid[0][0].setChessPiece(null, false);
-      this.board.grid[0][2].chessPiece.position = new Array(0, 2);
+      if (this.position[1] === 1) {
+        this.board.grid[0][2].setChessPiece(
+          this.board.grid[0][0].chessPiece,
+          true
+        );
+        this.board.grid[0][0].setChessPiece(null, false);
+        this.board.grid[0][2].chessPiece.position = new Array(0, 2);
+      } else {
+        this.board.grid[0][5].setChessPiece(
+          this.board.grid[0][7].chessPiece,
+          true
+        );
+        this.board.grid[0][7].setChessPiece(null, false);
+        this.board.grid[0][5].chessPiece.position = new Array(0, 7);
+      }
     } else {
-      this.board.grid[7][2].setChessPiece(
-        this.board.grid[7][0].chessPiece,
-        true
-      );
-      this.board.grid[7][0].setChessPiece(null, false);
-      this.board.grid[7][2].chessPiece.position = new Array(7, 2);
+      if (this.position[1] === 1) {
+        this.board.grid[7][2].setChessPiece(
+          this.board.grid[7][0].chessPiece,
+          true
+        );
+        this.board.grid[7][0].setChessPiece(null, false);
+        this.board.grid[7][2].chessPiece.position = new Array(7, 2);
+      } else {
+        this.board.grid[7][5].setChessPiece(
+          this.board.grid[7][7].chessPiece,
+          true
+        );
+        this.board.grid[7][7].setChessPiece(null, false);
+        this.board.grid[7][5].chessPiece.position = new Array(7, 7);
+      }
     }
   };
 }
