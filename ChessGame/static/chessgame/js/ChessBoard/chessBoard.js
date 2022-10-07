@@ -58,171 +58,81 @@ class ChessBoard {
 
   insertStartingPieces = () => {
     this.grid[0][0].setChessPiece(
-      new Rook(
-        new Array(0, 0),
-        '../../static/chessgame/img/white-rook.png',
-        'White',
-        this
-      ),
+      new Rook(new Array(0, 0), '../..//img/white-rook.png', 'White', this),
       true
     );
     this.grid[0][1].setChessPiece(
-      new Knight(
-        new Array(0, 1),
-        '../../static/chessgame/img/white-knight.png',
-        'White',
-        this
-      ),
+      new Knight(new Array(0, 1), '../../img/white-knight.png', 'White', this),
       true
     );
     this.grid[0][2].setChessPiece(
-      new Bishop(
-        new Array(0, 2),
-        '../../static/chessgame/img/white-bishop.png',
-        'White',
-        this
-      ),
+      new Bishop(new Array(0, 2), '../../img/white-bishop.png', 'White', this),
       true
     );
     this.grid[0][3].setChessPiece(
-      new King(
-        new Array(0, 3),
-        '../../static/chessgame/img/white-king.png',
-        'White',
-        this
-      ),
+      new King(new Array(0, 3), '../../img/white-king.png', 'White', this),
       true
     );
     this.whiteKingPos = new Array(0, 3);
     this.grid[0][4].setChessPiece(
-      new Queen(
-        new Array(0, 4),
-        '../../static/chessgame/img/white-queen.png',
-        'White',
-        this
-      ),
+      new Queen(new Array(0, 4), '../../img/white-queen.png', 'White', this),
       true
     );
     this.grid[0][5].setChessPiece(
-      new Bishop(
-        new Array(0, 5),
-        '../../static/chessgame/img/white-bishop.png',
-        'White',
-        this
-      ),
+      new Bishop(new Array(0, 5), '../../img/white-bishop.png', 'White', this),
       true
     );
     this.grid[0][6].setChessPiece(
-      new Knight(
-        new Array(0, 6),
-        '../../static/chessgame/img/white-knight.png',
-        'White',
-        this
-      ),
+      new Knight(new Array(0, 6), '../../img/white-knight.png', 'White', this),
       true
     );
     this.grid[0][7].setChessPiece(
-      new Rook(
-        new Array(0, 7),
-        '../../static/chessgame/img/white-rook.png',
-        'White',
-        this
-      ),
+      new Rook(new Array(0, 7), '../../img/white-rook.png', 'White', this),
       true
     );
     for (let i = 0; i < 8; i++) {
       this.grid[1][i].setChessPiece(
-        new Pawn(
-          new Array(1, i),
-          '../../static/chessgame/img/white-pawn.png',
-          'White',
-          this
-        ),
+        new Pawn(new Array(1, i), '../../img/white-pawn.png', 'White', this),
         true
       );
     }
     for (let i = 0; i < 8; i++) {
       this.grid[6][i].setChessPiece(
-        new Pawn(
-          new Array(6, i),
-          '../../static/chessgame/img/black-pawn.png',
-          'Black',
-          this
-        ),
+        new Pawn(new Array(6, i), '../../mg/black-pawn.png', 'Black', this),
         true
       );
     }
     this.grid[7][0].setChessPiece(
-      new Rook(
-        new Array(7, 0),
-        '../../static/chessgame/img/black-rook.png',
-        'Black',
-        this
-      ),
+      new Rook(new Array(7, 0), '../../img/black-rook.png', 'Black', this),
       true
     );
     this.grid[7][1].setChessPiece(
-      new Knight(
-        new Array(7, 1),
-        '../../static/chessgame/img/black-knight.png',
-        'Black',
-        this
-      ),
+      new Knight(new Array(7, 1), '../../img/black-knight.png', 'Black', this),
       true
     );
     this.grid[7][2].setChessPiece(
-      new Bishop(
-        new Array(7, 2),
-        '../../static/chessgame/img/black-bishop.png',
-        'Black',
-        this
-      ),
+      new Bishop(new Array(7, 2), '../../img/black-bishop.png', 'Black', this),
       true
     );
     this.grid[7][3].setChessPiece(
-      new King(
-        new Array(7, 3),
-        '../../static/chessgame/img/black-king.png',
-        'Black',
-        this
-      ),
+      new King(new Array(7, 3), '../../img/black-king.png', 'Black', this),
       true
     );
     this.blackKingPos = new Array(7, 3);
     this.grid[7][4].setChessPiece(
-      new Queen(
-        new Array(7, 4),
-        '../../static/chessgame/img/black-queen.png',
-        'Black',
-        this
-      ),
+      new Queen(new Array(7, 4), '../../img/black-queen.png', 'Black', this),
       true
     );
     this.grid[7][5].setChessPiece(
-      new Bishop(
-        new Array(7, 5),
-        '../../static/chessgame/img/black-bishop.png',
-        'Black',
-        this
-      ),
+      new Bishop(new Array(7, 5), '../../img/black-bishop.png', 'Black', this),
       true
     );
     this.grid[7][6].setChessPiece(
-      new Knight(
-        new Array(7, 6),
-        '../../static/chessgame/img/black-knight.png',
-        'Black',
-        this
-      ),
+      new Knight(new Array(7, 6), '../../img/black-knight.png', 'Black', this),
       true
     );
     this.grid[7][7].setChessPiece(
-      new Rook(
-        new Array(7, 7),
-        '../../static/chessgame/img/black-rook.png',
-        'Black',
-        this
-      ),
+      new Rook(new Array(7, 7), '../../img/black-rook.png', 'Black', this),
       true
     );
 
