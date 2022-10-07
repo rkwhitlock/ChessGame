@@ -1,3 +1,3 @@
 # ChessGame
 
-Go to [this link](rkwhitlock.github.io/ChessGame) to play!
+Go to [this link](https://rkwhitlock.github.io/ChessGame) to play!
