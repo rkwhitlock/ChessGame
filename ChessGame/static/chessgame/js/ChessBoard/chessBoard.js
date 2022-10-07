@@ -12,7 +12,7 @@ class ChessBoard {
   enPassantPiece;
   whiteCaptured = new Array(0);
   blackCaptured = new Array(0);
-  pawnReplace = false;
+  pawnReplacement = false;
 
   constructor() {
     this.playerContainer.className = 'playerContainer';
@@ -194,5 +194,23 @@ class ChessBoard {
       }
     }
     return true;
+  };
+
+  pawnReplace = () => {
+    this.pawnReplacement = true;
+
+    if (this.selectedPiece.color === 'White') {
+      for (let i = 0; i < this.blackCaptured.length; i++) {
+        this.blackCaptured[i].chessPiece.onclick =
+          this.blackCaptured[i].pawnReplaceOnClick;
+      }
+    } else {
+      for (let i = 0; i < this.whiteCaptured.length; i++) {
+        this.whiteCaptured[i].chessPiece.onclick =
+          this.whiteCaptured[i].pawnReplaceOnClick;
+      }
+    }
+
+    this.update();
   };
 }

@@ -115,6 +115,20 @@ class King extends ChessPiece {
           this.availableSquares.push(new Array(7, 1));
         }
       }
+      if (
+        this.board.grid[7][7].hasPiece &&
+        !this.board.grid[7][6].hasPiece &&
+        !this.board.grid[7][5].hasPiece &&
+        !this.board.grid[7][4].hasPiece &&
+        this.notMoved
+      ) {
+        if (
+          this.board.grid[7][7].chessPiece.name.includes('Rook') &&
+          this.board.grid[7][7].chessPiece.notMoved
+        ) {
+          this.availableSquares.push(new Array(7, 6));
+        }
+      }
     } else {
       if (
         this.board.grid[0][0].hasPiece &&
@@ -127,6 +141,20 @@ class King extends ChessPiece {
           this.board.grid[0][0].chessPiece.notMoved
         ) {
           this.availableSquares.push(new Array(0, 1));
+        }
+      }
+      if (
+        this.board.grid[0][7].hasPiece &&
+        !this.board.grid[0][6].hasPiece &&
+        !this.board.grid[0][5].hasPiece &&
+        !this.board.grid[0][4].hasPiece &&
+        this.notMoved
+      ) {
+        if (
+          this.board.grid[0][7].chessPiece.name.includes('Rook') &&
+          this.board.grid[0][7].chessPiece.notMoved
+        ) {
+          this.availableSquares.push(new Array(0, 6));
         }
       }
     }
